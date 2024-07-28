@@ -2,6 +2,7 @@ package ru.korovin.ProgectBoot.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -10,6 +11,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     @Column
+    @NotEmpty(message = "Name is required.")
     private String name;
     @Min(value = 0, message = "Age should be greater than 0")
     @Column

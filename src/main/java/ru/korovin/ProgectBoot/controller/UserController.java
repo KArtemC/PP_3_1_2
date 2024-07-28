@@ -1,15 +1,17 @@
 package ru.korovin.ProgectBoot.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.korovin.ProgectBoot.model.User;
 import ru.korovin.ProgectBoot.service.UserService;
 
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping("/")
 public class UserController {
     private final UserService userService;
 
@@ -30,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public String addUser(@ModelAttribute("user") User user, Model model) {
+    public String addUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         if (user.getName() == null || user.getName().isEmpty()) {
             model.addAttribute("error", "Name is required.");
             return "new_user";
@@ -46,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute("user") User user, Model model) {
+    public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         if (user.getName() == null || user.getName().isEmpty()) {
             model.addAttribute("error", "Name is required.");
             return "edit_user";
